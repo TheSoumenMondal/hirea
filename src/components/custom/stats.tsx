@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
@@ -20,22 +20,22 @@ const demoData: Stats[] = [
   {
     title: "Active Job",
     count: 1200,
-    icon: <IconGraph className="text-orange-600" />,
+    icon: <IconGraph className="text-green-600" />,
   },
   {
     title: "Companies",
     count: 500,
-    icon: <IconGps className="text-orange-600" />,
+    icon: <IconGps className="text-green-600" />,
   },
   {
     title: "Job Seekers",
     count: 1235,
-    icon: <IconBriefcase className="text-orange-600" />,
+    icon: <IconBriefcase className="text-green-600" />,
   },
   {
     title: "Success Rate",
     count: 95,
-    icon: <IconDeviceMobileStar className="text-orange-600" />,
+    icon: <IconDeviceMobileStar className="text-green-600" />,
   },
 ];
 

@@ -45,7 +45,7 @@ const JobRow = ({ job }: { job: JobCardProps }) => {
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 200 }}
         >
-          <Button className="flex gap-1 items-center rounded-xl bg-orange-400 hover:bg-orange-500/80" size={"sm"}>
+          <Button className="flex gap-1 items-center rounded-xl" size={"sm"}>
             <span className="hidden md:flex">Apply</span>{" "}
             <IconCircleArrowUpRight className="w-4 h-4" />
           </Button>
@@ -62,7 +62,7 @@ const JobRow = ({ job }: { job: JobCardProps }) => {
           {job.postedOn}
         </span>
 
-        <span className="text-orange-600 font-medium">{job.salary}</span>
+        <span className="text-green-600 font-medium">{job.salary}</span>
       </div>
     </motion.div>
   );

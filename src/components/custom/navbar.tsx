@@ -22,9 +22,15 @@ const Navbar = () => {
       </div>
       <div className="h-full flex gap-4 items-center">
         <ToggleTheme className="cursor-pointer" />
-        <Button className="rounded-xl text-sm" variant={"outline"} size={"sm"}>
-          Log In
-        </Button>
+        <Link href={"/login"}>
+          <Button
+            className="rounded-xl text-sm select-none"
+            variant={"outline"}
+            size={"sm"}
+          >
+            Log In
+          </Button>
+        </Link>
       </div>
     </div>
   );

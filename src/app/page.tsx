@@ -24,7 +24,7 @@ const page = () => {
           </Button>
           <h1 className="text-4xl text-center font-bold select-none">
             Find your dream job or{" "}
-            <span className="text-orange-500">hire top talent</span>
+            <span className="text-green-500">hire top talent</span>
           </h1>
           <p className="text-sm text-center select-none">
             Connect with opportunities that match your skills and ambitions.
@@ -38,7 +38,7 @@ const page = () => {
             />
             <Button
               variant={"default"}
-              className="mt-4 md:mt-0 bg-orange-400 hover:bg-orange-500"
+              className="mt-4 md:mt-0 bg-green-400 hover:bg-green-500"
             >
               <IconFilter2 className="w-4 h-4" />
               Search
@@ -47,7 +47,7 @@ const page = () => {
           <div className="flex gap-1 items-center mt-4">
             <p className="text-xs">Today&apos;s popular search</p>
             <div className="flex gap-2">
-              <Badge className="bg-orange-500">Frontend Developer</Badge>
+              <Badge className="bg-green-500">Frontend Developer</Badge>
             </div>
           </div>
         </div>

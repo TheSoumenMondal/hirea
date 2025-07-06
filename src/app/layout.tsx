@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/custom/navbar";
 import { ThemeProvider } from "@/provider/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -37,6 +38,7 @@ export default function RootLayout({
             <div className="w-full max-w-3xl px-4">{children}</div>
           </main>
         </ThemeProvider>
+        <Toaster richColors />
       </body>
     </html>
   );

@@ -48,7 +48,7 @@ const Working = () => {
                 "bg-card border border-border rounded-2xl shadow-sm p-6 flex flex-col items-center text-center hover:shadow-lg transition-all duration-300"
               )}
             >
-              <div className="w-16 h-16 rounded-full bg-orange-500 text-white flex items-center justify-center text-xl font-bold mb-4 shadow-md">
+              <div className="w-16 h-16 rounded-full bg-green-500 text-white flex items-center justify-center text-xl font-bold mb-4 shadow-md">
                 {step.number}
               </div>
               <h3 className="text-lg font-semibold mb-2 text-foreground">
