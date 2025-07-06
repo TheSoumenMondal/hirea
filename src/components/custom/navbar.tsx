@@ -1,0 +1,33 @@
+import React from "react";
+import { Button } from "../ui/button";
+import ToggleTheme from "./theme-toggle";
+import Link from "next/link";
+
+const Navbar = () => {
+  return (
+    <div className="w-full flex justify-between items-center h-12 ">
+      <Link href={"/"} className=" font-bold">
+        hirea
+      </Link>
+      <div className="md:flex gap-2 items-end justify-end hidden">
+        <Link href={"find"} className="text-sm">
+          Find Job
+        </Link>
+        <Link href={"companies"} className="text-sm">
+          Companies
+        </Link>
+        <Link href={"resources"} className="text-sm">
+          Resources
+        </Link>
+      </div>
+      <div className="h-full flex gap-4 items-center">
+        <ToggleTheme className="cursor-pointer" />
+        <Button className="rounded-xl text-sm" variant={"outline"} size={"sm"}>
+          Log In
+        </Button>
+      </div>
+    </div>
+  );
+};
+
+export default Navbar;
