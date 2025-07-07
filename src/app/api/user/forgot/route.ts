@@ -31,7 +31,6 @@ export async function POST(request: NextRequest) {
       process.env.FORGET_EMAIL_SECRET!,
       { expiresIn: "5m" }
     );
-
     user.resetPasswordExpire = new Date(Date.now() + 5 * 60 * 1000);
     user.resetToken = token;
     

@@ -1,9 +1,15 @@
+"use client";
+
 import React from "react";
 import { Button } from "../ui/button";
 import ToggleTheme from "./theme-toggle";
 import Link from "next/link";
+import { useUserStore } from "@/store/userStore";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 
 const Navbar = () => {
+  const { isAuth, user } = useUserStore();
+
   return (
     <div className="w-full flex justify-between items-center h-12 ">
       <Link href={"/"} className=" font-bold">
@@ -22,15 +28,26 @@ const Navbar = () => {
       </div>
       <div className="h-full flex gap-4 items-center">
         <ToggleTheme className="cursor-pointer" />
-        <Link href={"/login"}>
-          <Button
-            className="rounded-xl text-sm select-none"
-            variant={"outline"}
-            size={"sm"}
-          >
-            Log In
-          </Button>
-        </Link>
+        {isAuth === false ? (
+          <Link href={"/login"}>
+            <Button
+              className="rounded-xl text-sm select-none"
+              variant={"outline"}
+              size={"sm"}
+            >
+              Log In
+            </Button>
+          </Link>
+        ) : (
+          <Link href={"/profile"}>
+            <Avatar className="cursor-pointer">
+              <AvatarImage src={user?.profilePhoto} alt="profile" />
+              <AvatarFallback>
+                {user?.name?.split(" ")[0]?.split("")[0]}
+              </AvatarFallback>
+            </Avatar>
+          </Link>
+        )}
       </div>
     </div>
   );

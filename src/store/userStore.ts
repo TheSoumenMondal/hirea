@@ -1,8 +1,15 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+export type SocialMediaProfiles = {
+  linkedin: string;
+  facebook: string;
+  github: string;
+  instagram: string;
+};
+
 export type User = {
-  _id: string;
+  _id?: string;
   name: string;
   email: string;
   phoneNumber: string;
@@ -10,7 +17,7 @@ export type User = {
   bio?: string;
   skills?: string[];
   resume?: string;
-  socialMediaProfiles?: string[];
+  socialMediaProfiles?: SocialMediaProfiles;
   profilePhoto?: string;
   savedJobs?: string[];
 };

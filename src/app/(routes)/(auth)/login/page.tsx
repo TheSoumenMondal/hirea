@@ -49,7 +49,7 @@ const LogInPage = () => {
       toast.success("Logged in successfully");
       reset();
 
-      router.push("/dashboard");
+      router.push("/profile");
     } catch (err) {
       toast.error("Login failed", {
         description: "Please check your credentials.",

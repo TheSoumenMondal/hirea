@@ -1,5 +1,12 @@
 import { Document, Schema, model, models } from "mongoose";
 
+type SocialMediaProfiles = {
+  linkedin: string;
+  facebook: string;
+  github: string;
+  instagram: string;
+};
+
 export interface IUser extends Document {
   name: string;
   email: string;
@@ -9,7 +16,12 @@ export interface IUser extends Document {
   bio?: string;
   skills?: string[];
   resume?: string;
-  socialMediaProfiles?: string[];
+  socialMediaProfiles?: {
+    linkedin?: string;
+    facebook?: string;
+    github?: string;
+    instagram?: string;
+  };
   profilePhoto?: string;
   savedJobs?: string[];
   resetPasswordExpire?: Date;
@@ -34,8 +46,16 @@ const UserSchema = new Schema<IUser>(
     },
     resume: { type: String },
     socialMediaProfiles: {
-      type: [String],
-      default: [],
+      type: new Schema(
+        {
+          linkedin: { type: String, default: "" },
+          facebook: { type: String, default: "" },
+          github: { type: String, default: "" },
+          instagram: { type: String, default: "" },
+        },
+        { _id: false }
+      ),
+      default: {},
     },
     profilePhoto: { type: String },
     savedJobs: {

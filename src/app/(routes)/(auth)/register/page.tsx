@@ -28,6 +28,7 @@ import React, { useEffect, useCallback } from "react";
 import debounce from "lodash.debounce";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { useUserStore } from "@/store/userStore";
+import { useRouter } from "next/navigation";
 
 type Inputs = {
   name: string;
@@ -53,6 +54,7 @@ const RegisterPage = () => {
     },
   });
 
+  const router = useRouter();
   const formValues = watch();
 
   const { setIsAuth, setUser } = useUserStore();
@@ -89,6 +91,7 @@ const RegisterPage = () => {
       localStorage.removeItem(STORAGE_KEY);
       toast.success("Registered successfully");
       reset();
+      router.push("/login");
     } catch (error: any) {
       if (axios.isAxiosError(error)) {
         const status = error.response?.status;
