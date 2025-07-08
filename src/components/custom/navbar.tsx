@@ -16,7 +16,7 @@ const Navbar = () => {
         hirea
       </Link>
       <div className="md:flex gap-2 items-end justify-end hidden">
-        <Link href={"find"} className="text-sm">
+        <Link href={"/jobs"} className="text-sm">
           Find Job
         </Link>
         <Link href={"companies"} className="text-sm">

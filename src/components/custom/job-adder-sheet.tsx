@@ -20,6 +20,7 @@ import axios from "axios";
 import { toast } from "sonner";
 import { Loader2, Plus } from "lucide-react";
 import { IconPlus } from "@tabler/icons-react";
+import { useJobActions } from "@/store/jobStore";
 
 type JobForm = {
   title: string;
@@ -41,11 +42,14 @@ const JobAdderSheet = ({ companyId }: { companyId: string }) => {
     formState: { errors },
   } = useForm<JobForm>();
 
+  const { addJob } = useJobActions();
+
   const onSubmit = async (data: JobForm) => {
     try {
       setLoading(true);
-      await axios.post(`/api/job/new?id=${companyId}`, data);
+      const res = await axios.post(`/api/job/new?id=${companyId}`, data);
       toast.success("Job posted successfully!");
+      addJob(res.data.job);
       reset();
       setOpen(false);
     } catch (err: any) {
@@ -59,7 +63,11 @@ const JobAdderSheet = ({ companyId }: { companyId: string }) => {
     <>
       <Sheet open={open} onOpenChange={setOpen}>
         <SheetTrigger asChild>
-          <Button className="gap-2 font-medium rounded-lg" size={"sm"} variant={"secondary"}>
+          <Button
+            className="gap-2 font-medium rounded-lg"
+            size={"sm"}
+            variant={"secondary"}
+          >
             <IconPlus className="w-5 h-5" />
             Add Job
           </Button>

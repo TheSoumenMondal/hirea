@@ -39,8 +39,8 @@ const JobTable: React.FC<JobTableProps> = ({ jobs }) => {
           </TableHeader>
 
           <TableBody>
-            {jobs.map((job) => (
-              <TableRow key={job.id}>
+            {jobs.map((job, index) => (
+              <TableRow key={job.id || index}>
                 <TableCell className="font-medium">{job.title}</TableCell>
                 <TableCell>{job.status}</TableCell>
                 <TableCell>{job.openings}</TableCell>

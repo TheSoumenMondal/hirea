@@ -123,7 +123,7 @@ const ProfilePage = () => {
 
   return (
     <div className="w-full h-[calc(100vh_-_120px)] flex items-center justify-center">
-      <Card className="w-full relative overflow-x-hidden">
+      <Card className="w-full relative overflow-x-hidden bg-transparent border-none shadow-none">
         <CardHeader className="w-full flex justify-center flex-col items-center gap-2">
           {user?.resume ? (
             <div className="relative w-fit select-none">
@@ -264,13 +264,39 @@ const ProfilePage = () => {
             </Button>
           )}
 
+          {user.role === "jobseeker" ? (
+            <Button
+              onClick={() => router.push("/saved-jobs")}
+              variant="outline"
+              size="sm"
+              className="gap-1 w-full md:w-auto rounded-xl"
+            >
+              View Saved Jobs
+            </Button>
+          ) : (
+            <Button
+              onClick={() => router.push("/received-application")}
+              variant="destructive"
+              size="sm"
+              className="gap-1 w-full md:w-auto rounded-xl"
+            >
+              View Application Requests
+            </Button>
+          )}
+
+          {user.role === "jobseeker" && (
+            <Button onClick={()=>router.push("/applications")} variant={"secondary"} size={"sm"} className="rounded-lg">
+              See Application Status
+            </Button>
+          )}
+
           <Button
             size="sm"
             variant="secondary"
             onClick={() => setIsSheetOpen(true)}
             className="gap-1 w-full md:w-auto rounded-xl"
           >
-            Edit Profile <IconPencil size={16} />
+            <IconPencil size={16} />
           </Button>
           <Button
             onClick={handleLogout}
@@ -278,7 +304,7 @@ const ProfilePage = () => {
             size="sm"
             className="gap-1 w-full md:w-auto rounded-xl"
           >
-            Log out <IconRocket size={16} />
+            <IconRocket size={16} />
           </Button>
         </CardFooter>
       </Card>

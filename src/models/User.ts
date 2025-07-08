@@ -1,11 +1,4 @@
-import { Document, Schema, model, models } from "mongoose";
-
-type SocialMediaProfiles = {
-  linkedin: string;
-  facebook: string;
-  github: string;
-  instagram: string;
-};
+import { Document, Schema, model, models, Types } from "mongoose";
 
 export interface IUser extends Document {
   name: string;
@@ -23,7 +16,7 @@ export interface IUser extends Document {
     instagram?: string;
   };
   profilePhoto?: string;
-  savedJobs?: string[];
+  savedJobs?: Types.ObjectId[]; // changed to ObjectId[]
   resetPasswordExpire?: Date;
   resetToken?: string;
 }
@@ -58,10 +51,14 @@ const UserSchema = new Schema<IUser>(
       default: {},
     },
     profilePhoto: { type: String },
-    savedJobs: {
-      type: [String],
-      default: [],
-    },
+
+    savedJobs: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Job",
+      },
+    ],
+
     resetPasswordExpire: {
       type: Date,
       default: null,

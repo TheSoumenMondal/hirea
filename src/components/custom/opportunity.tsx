@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Button } from "../ui/button";
 import { Badge } from "../ui/badge";
 import {
@@ -10,16 +10,36 @@ import {
   IconMapPin,
 } from "@tabler/icons-react";
 import { motion } from "framer-motion";
+import axios from "axios";
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface JobCardProps {
+  _id: string;
   company: string;
-  role: "full time" | "part time";
+  companyLogo: string;
+  createdAt: string;
+  description: string;
+  experience: number;
   location: string;
+  openings: number;
+  recruiter: string;
+  role: string;
+  salary: number;
+  status: string;
+  title: string;
+  updatedAt: string;
   postedOn: string;
-  salary: string;
 }
 
 const JobRow = ({ job }: { job: JobCardProps }) => {
+  const router = useRouter();
+
+  const handleClick = (jobId: string) => {
+    router.push(`/jobs/${jobId}`);
+  };
+
   return (
     <motion.div
       whileHover={{ scale: 1.01 }}
@@ -31,21 +51,24 @@ const JobRow = ({ job }: { job: JobCardProps }) => {
     >
       <div className="flex items-center justify-between">
         <div className="flex gap-3 items-center">
-          <div
-            className={`w-4 h-4 rounded-full bg-gradient-to-r ${
-              job.role === "part time"
-                ? "from-pink-400 via-orange-300 to-yellow-300"
-                : "from-blue-500 via-cyan-400 to-green-300"
-            }`}
-          />
-          <span className="font-semibold">{job.company}</span>
-          <Badge className="text-xs capitalize">{job.role}</Badge>
+          <Avatar>
+            <AvatarImage src={job.companyLogo} />
+            <AvatarFallback>
+              {job.company.charAt(0).toUpperCase()}
+            </AvatarFallback>
+          </Avatar>
+          <span className="font-semibold">{job.role}</span>
+          <Badge className="text-xs capitalize">{job.openings}</Badge>
         </div>
         <motion.div
           whileHover={{ scale: 1.05 }}
           transition={{ type: "spring", stiffness: 200 }}
         >
-          <Button className="flex gap-1 items-center rounded-xl" size={"sm"}>
+          <Button
+            className="flex gap-1 items-center rounded-xl"
+            size={"sm"}
+            onClick={() => handleClick(job._id)}
+          >
             <span className="hidden md:flex">Apply</span>{" "}
             <IconCircleArrowUpRight className="w-4 h-4" />
           </Button>
@@ -59,61 +82,32 @@ const JobRow = ({ job }: { job: JobCardProps }) => {
         </span>
         <span className="flex gap-0.5 items-center">
           <IconCalendar className="w-4 h-4" />
-          {job.postedOn}
+          {new Date(job.createdAt).toLocaleDateString("en-US", {
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+          })}
         </span>
 
-        <span className="text-green-600 font-medium">{job.salary}</span>
+        <span className="text-green-600">₹{job.salary}</span>
       </div>
     </motion.div>
   );
 };
 
-const jobs: JobCardProps[] = [
-  {
-    company: "TechCorp",
-    role: "full time",
-    location: "San Francisco, CA",
-    postedOn: "2 days ago",
-    salary: "$120k - $160k",
-  },
-  {
-    company: "InnovateLab",
-    role: "full time",
-    location: "New York, NY",
-    postedOn: "2 days ago",
-    salary: "$130k - $180k",
-  },
-  {
-    company: "DesignStudio",
-    role: "full time",
-    location: "Remote",
-    postedOn: "2 days ago",
-    salary: "$80k - $110k",
-  },
-  {
-    company: "AlphaTech",
-    role: "part time",
-    location: "Austin, TX",
-    postedOn: "1 day ago",
-    salary: "$60k - $90k",
-  },
-  {
-    company: "BetaWorks",
-    role: "full time",
-    location: "Seattle, WA",
-    postedOn: "3 days ago",
-    salary: "$100k - $140k",
-  },
-  {
-    company: "GammaSoft",
-    role: "part time",
-    location: "Boston, MA",
-    postedOn: "5 days ago",
-    salary: "$70k - $100k",
-  },
-];
-
 const Opportunity = () => {
+  const [latestJobs, setLatestJobs] = useState<JobCardProps[]>([]);
+
+  const fetchLatestJobs = async () => {
+    const { data } = await axios.get("/api/job/public");
+    setLatestJobs(data.jobs);
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchLatestJobs();
+  }, []);
+
   return (
     <div className="w-full flex items-center flex-col space-y-3 my-10 px-4">
       <motion.p
@@ -133,13 +127,15 @@ const Opportunity = () => {
         Discover hand-picked jobs from top companies actively hiring
       </motion.p>
       <div className="w-full max-w-xl flex gap-4 flex-col mt-4">
-        {jobs.map((job, index) => (
+        {latestJobs.map((job, index) => (
           <JobRow job={job} key={index} />
         ))}
       </div>
-      <Button className="mt-6 gap-0 hover:gap-2" size={"sm"}>
-        Find More Jobs <IconChevronRight className="w-4 h-4" />
-      </Button>
+      <Link href={"/jobs"}>
+        <Button className="mt-6 gap-0 hover:gap-2" size={"sm"}>
+          Find More Jobs <IconChevronRight className="w-4 h-4" />
+        </Button>
+      </Link>
     </div>
   );
 };
