@@ -13,17 +13,22 @@ export async function GET(req: NextRequest) {
     const title = searchParams.get("title");
     const location = searchParams.get("location");
     const expParam = searchParams.get("experience");
+    const pageParam = searchParams.get("page");
+    const limitParam = searchParams.get("limit");
 
-    // Add dynamic filters
-    if (companyId && companyId.trim() !== "") {
+    const page = parseInt(pageParam || "1", 10);
+    const limit = parseInt(limitParam || "6", 10);
+    const skip = (page - 1) * limit;
+
+    if (companyId?.trim()) {
       filters.company = companyId.trim();
     }
 
-    if (title && title.trim() !== "") {
+    if (title?.trim()) {
       filters.title = { $regex: title.trim(), $options: "i" };
     }
 
-    if (location && location.trim() !== "") {
+    if (location?.trim()) {
       filters.location = { $regex: location.trim(), $options: "i" };
     }
 
@@ -34,15 +39,22 @@ export async function GET(req: NextRequest) {
       }
     }
 
-    const [jobs, topSix, locations] = await Promise.all([
-      Job.find(filters).sort({ createdAt: -1 }),
-      Job.find(filters).sort({ createdAt: -1 }).limit(6),
-      Job.distinct("location", companyId ? { company: companyId } : {}),
-    ]);
+    const totalJobs = await Job.countDocuments(filters);
+    const totalPages = Math.ceil(totalJobs / limit);
 
-    return NextResponse.json({ jobs, topSix, locations });
+    const jobs = await Job.find(filters)
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(limit);
+
+    return NextResponse.json({
+      jobs,
+      totalPages,
+      currentPage: page,
+      totalJobs,
+    });
   } catch (error: any) {
-    console.error("Error fetching jobs:", error);
+    console.error("Error fetching paginated jobs:", error);
     return NextResponse.json(
       {
         message: "Failed to fetch jobs",
