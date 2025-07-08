@@ -14,6 +14,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { IconChevronRight } from "@tabler/icons-react";
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
 
 type JobType = {
   _id: string;
@@ -74,10 +75,12 @@ const Page = () => {
               <CardTitle className="text-lg font-semibold">
                 {job.title}
               </CardTitle>
-              <img
+              <Image
                 src={job.companyLogo}
                 alt="logo"
-                className="h-10 w-10 rounded-full object-cover"
+                className="rounded-full object-cover"
+                width={20}
+                height={20}
               />
             </CardHeader>
             <CardContent>

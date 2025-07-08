@@ -18,7 +18,7 @@ import { useForm } from "react-hook-form";
 import { useState } from "react";
 import axios from "axios";
 import { toast } from "sonner";
-import { Loader2, Plus } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { IconPlus } from "@tabler/icons-react";
 import { useJobActions } from "@/store/jobStore";
 

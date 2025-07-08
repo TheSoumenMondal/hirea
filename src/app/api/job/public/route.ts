@@ -2,7 +2,7 @@ import { connectDB } from "@/config/db";
 import Job from "@/models/Job";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
     await connectDB();
     const jobs = await Job.find().sort({ createdAt: -1 }).limit(6);

@@ -30,7 +30,7 @@ const Page = () => {
 
   const onSubmit: SubmitHandler<EmailFormInputs> = async (formData) => {
     try {
-      const { data } = await axios.post("/api/user/forgot", {
+      await axios.post("/api/user/forgot", {
         email: formData.email,
       });
 

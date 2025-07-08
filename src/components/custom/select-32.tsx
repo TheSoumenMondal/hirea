@@ -14,7 +14,7 @@ import MultipleSelector, { Option } from "@/components/ui/multi-select";
 import { Save, Loader2 } from "lucide-react";
 import { toast } from "sonner";
 import axios from "axios";
-import { User, useUserStore } from "@/store/userStore";
+import {  useUserStore } from "@/store/userStore";
 import { motion } from "framer-motion";
 import { IconPlus } from "@tabler/icons-react";
 

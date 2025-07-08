@@ -13,7 +13,6 @@ import {
 } from "@/components/ui/card";
 import { useUserStore } from "@/store/userStore";
 import {
-  IconCancel,
   IconChevronRight,
   IconLink,
   IconLoader3,
