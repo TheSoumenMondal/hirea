@@ -19,7 +19,10 @@ export async function GET(
   try {
     decoded = jwt.verify(token, process.env.JWT_SECRET!);
   } catch (err) {
-    return NextResponse.json({ message: "Invalid or expired token" }, { status: 403 });
+    return NextResponse.json(
+      { message: "Invalid or expired token" },
+      { status: 403 }
+    );
   }
 
   try {
